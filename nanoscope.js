@@ -22,6 +22,23 @@ Meteor.methods({
 
     Posts.insert(post);
   },
+  downvote: function (postId) {
+    var user = Meteor.user();
+    if (!user) {
+      if (Meteor.isClient) {
+        alert("you must be logged in");
+      }
+      return;
+    }
+
+    Posts.update({
+      _id: postId,
+      upvoters: {$eq: user._id}
+    }, {
+      $pull: {upvoters: user._id},
+      $inc: {votes: -1}
+    });
+  },
   upvote: function (postId) {
     var user = Meteor.user();
     if (!user) {
@@ -48,7 +65,7 @@ if (Meteor.isClient) {
       if (!_.include(this.upvoters, userId)) {
         return 'btn-primary upvotable';
       } else {
-        return 'disabled';
+        return 'downvotable';
       }
     }
   });
@@ -76,6 +93,10 @@ if (Meteor.isClient) {
     'click .upvotable': function (e) {
       e.preventDefault();
       Meteor.call('upvote', this._id);
+    },
+    'click .downvotable': function (e) {
+      e.preventDefault();
+      Meteor.call('downvote', this._id);
     }
   });
 
