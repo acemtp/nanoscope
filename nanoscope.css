@@ -14,7 +14,9 @@
 body {
   background: #eee;
   color: #666666; }
-
+.input-group {
+  margin-bottom: 20px;
+}
 .post {
   /* For modern browsers */
   /* For IE 6/7 (trigger hasLayout) */
