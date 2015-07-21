@@ -33,7 +33,7 @@ Meteor.methods({
 
     Posts.update({
       _id: postId,
-      upvoters: {$eq: user._id}
+      upvoters: user._id
     }, {
       $pull: {upvoters: user._id},
       $inc: {votes: -1}
@@ -67,6 +67,9 @@ if (Meteor.isClient) {
       } else {
         return 'downvotable';
       }
+    },
+    counter: function () {
+     return this.votes > 1 ? "votes" : "vote";
     }
   });
 
