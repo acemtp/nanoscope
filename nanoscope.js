@@ -22,7 +22,12 @@ Meteor.methods({
   },
   upvote: function (postId) {
     var user = Meteor.user();
-    if (!user) return false;
+    if (!user) {
+      if (Meteor.isClient) {
+        alert("you must be logged in");
+      }
+      return;
+    }
 
     Posts.update({
       _id: postId,
@@ -43,7 +48,7 @@ if (Meteor.isClient) {
       } else {
         return 'disabled';
       }
-    },
+    }
   });
 
   Template.posts.helpers({
