@@ -6,7 +6,8 @@
 
 meteor-platform
 autopublish
-insecure
-bootstrap
+twbs:bootstrap
 accounts-password
 accounts-ui
+iron:router
+reactive-var
