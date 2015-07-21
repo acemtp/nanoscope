@@ -15,7 +15,9 @@ Meteor.methods({
       userId: A && A._id,
       author: A && A.emails[0].address,
       title: title,
-      url: url
+      url: url,
+      votes: 0,
+      upvoters: []
     };
 
     Posts.insert(post);
